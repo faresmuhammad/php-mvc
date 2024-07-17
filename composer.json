@@ -1,0 +1,17 @@
+{
+  "name": "fares/php-mvc",
+  "type": "project",
+  "authors": [
+    {
+      "name": "Fares Muhammad"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Core\\" : "core/"
+    }
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^10.5"
+  }
+}
