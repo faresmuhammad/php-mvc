@@ -8,6 +8,11 @@ namespace Core;
 class Request
 {
 
+    public function __construct()
+    {
+        $this->getBody();
+    }
+
     private array $routeParams = [];
 
     //get request method
@@ -25,6 +30,9 @@ class Request
     public function setRouteParams(array $params)
     {
         $this->routeParams = $params;
+        foreach ($this->routeParams as $key => $value) {
+            $this->{$key} = $value;
+        }
         return $this;
     }
 
@@ -33,23 +41,23 @@ class Request
         return $this->routeParams;
     }
 
-    //get 'get' parameters
     public function getBody(): array
     {
         $data = [];
         if ($this->getMethod() === 'get') {
             foreach ($_GET as $key => $value) {
                 $data[$key] = filter_input(INPUT_GET, $key, FILTER_SANITIZE_SPECIAL_CHARS);
+                $this->{$key} = $value;
             }
         }
         if ($this->getMethod() === 'post') {
             foreach ($_POST as $key => $value) {
                 $data[$key] = filter_input(INPUT_POST, $key, FILTER_SANITIZE_SPECIAL_CHARS);
+                $this->{$key} = $value;
             }
         }
         return $data;
     }
 
-    //get 'post' parameters
 
 }

@@ -7,7 +7,7 @@ class Router
 {
     private array $routesMap = [];
 
-    public function __construct(private Request $request)
+    public function __construct(private readonly Request $request, private readonly Response $response)
     {
     }
 
@@ -106,6 +106,10 @@ class Router
     }
 
     //resolve route
+
+    /**
+     * @throws \Exception
+     */
     public function resolve(string $method = null, string $url = null)
     {
         //get url and method
@@ -121,6 +125,7 @@ class Router
         //return not found error if there is no callback
         if ($callback === false){
             //todo: return a not found friendly-response
+            $this->response->statusCode(404);
             throw new \Exception('No route found');
         }
 
@@ -132,7 +137,7 @@ class Router
 
 
         //call the callback if it is closure or controller method
-        return call_user_func($callback, $this->request);
+        return call_user_func($callback, $this->request,$this->response);
     }
 
 }

@@ -5,15 +5,13 @@ namespace Core;
 class Controller
 {
 
-    public static function index(Request $request)
+    public static function index(Request $request,Response $response)
     {
-        echo '<pre>';
-        var_dump($request->getBody());
-        echo '</pre>';
-        echo '<br>';
-        echo '<pre>';
-        var_dump($request->getRouteParams());
-        echo '</pre>';
+        var_dump( $request->id);
+/*        return $response->json([
+           'status' => 200,
+           'user_id' => $request->getRouteParams()['id']
+        ]);*/
     }
 
     public function test()

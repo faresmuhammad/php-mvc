@@ -18,11 +18,11 @@ $config = [
 ];
 $app = new Application(dirname(__DIR__), $config);
 
-//$app->db->applyMigrations();
 
 $resetIndex = null;
 
 //[-n {filename}] n option to specify the migration filename that timestamp will append to it
+//[--migration {filename}] migration option to specify the migration that will be migrated
 $options = getopt("n:", ['migration:'], $resetIndex);
 
 //get the argument [add or migrate(not implemented yet)]
@@ -40,19 +40,17 @@ if (isset($argument) && $argument === 'add') {
     echo "{$filename} Created Successfully\n";
     exit(0);
 } elseif (isset($argument) && $argument === 'migrate') {
-    print_r($options);
     if (isset($options['migration'])) {
-        //handle rollback the migrations after the selected migration
+        //todo: handle rollback the migrations after the selected migration
         $migrationFile = $options['migration'];
         echo $migrationFile;
         $app->db->applyMigration($migrationFile);
         $app->db->saveMigrations([$migrationFile]);
         echo "{$migrationFile} Migrated Successfully\n";
-        exit(0);
     } else {
         $app->db->applyMigrations();
-        exit(0);
     }
+    exit(0);
 }
 
 

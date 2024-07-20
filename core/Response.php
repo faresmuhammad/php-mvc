@@ -5,7 +5,7 @@ namespace Core;
 class Response
 {
 
-    public function statusCode(int $code)
+    public function statusCode(int $code): static
     {
         http_response_code($code);
         return $this;
@@ -19,12 +19,15 @@ class Response
 
     /**
      * @param array $data
+     * @param int $code
      * @return string //json string
      */
     public function json(array $data, int $code = 200): string
     {
         http_response_code($code);
         header('Content-Type: application/json');
-        return json_encode($data);
+        $json = json_encode($data);
+        echo $json;
+        return $json;
     }
 }
