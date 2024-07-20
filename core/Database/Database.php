@@ -74,7 +74,7 @@ class Database
         return $this->pdo->prepare($query);
     }
 
-    private function saveMigrations(array $newMigrations)
+    public function saveMigrations(array $newMigrations)
     {
         //get the migrations with the format it will be inserted with
         $migrations = implode(',', array_map(fn($migration) => "('{$migration}')", $newMigrations));
