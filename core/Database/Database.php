@@ -74,6 +74,11 @@ class Database
         return $this->pdo->prepare($query);
     }
 
+    public function execute($query): bool|int
+    {
+        return $this->pdo->exec($query);
+    }
+
     public function saveMigrations(array $newMigrations)
     {
         //get the migrations with the format it will be inserted with

@@ -3,10 +3,16 @@
 namespace Core\Database;
 
 
+use Core\Application;
+
 abstract class Migration
 {
-    protected \PDO $connection;
 
+    protected Database $connection;
+    public function __construct()
+    {
+        $this->connection = Application::$app->db;
+    }
 
     abstract public function up(): void;
 

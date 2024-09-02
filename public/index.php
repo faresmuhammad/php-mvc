@@ -20,6 +20,6 @@ $config = [
 $app = new Application(dirname(__DIR__), $config);
 
 //Routes Registration
-$app->router->get('/user/{id}', [Controller::class, 'index']);
+$app->router->get('/', [Controller::class, 'test']);
 
 $app->run();
